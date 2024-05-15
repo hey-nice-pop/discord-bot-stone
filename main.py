@@ -35,6 +35,18 @@ minesweeper.setup(bot)
 # 現在の温度表示機能のセットアップ
 temperature.setup(bot)
 
+#news
+import tool.news as news
+news.setup(bot)
+
+#wikipedia
+import tool.wiki as wiki
+wiki.setup(bot)
+
+#weather
+import tool.weather as weather
+weather.setup(bot)
+
 @bot.event
 async def on_message(message):
     if message.author.bot:
