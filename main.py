@@ -2,12 +2,7 @@ import discord
 from discord.ext import commands
 import config
 
-import game.minesweeper as minesweeper
-
 from chatgptModule.chatgpt import set_openai_key, handle_chatgpt_response
-
-import temperatureModule.temperature as temperature
-from temperatureModule.temperature import process_message
 
 YOUR_BOT_TOKEN = config.BOT_TOKEN
 IGNORED_CATEGORY_ID = config.IGNORED_CATEGORY_ID  # 温度上昇を無視するカテゴリのID
@@ -30,21 +25,25 @@ async def on_ready():
     await bot.tree.sync()
     print(f'ログイン完了: {bot.user}')
 
-# マインスイーパー機能のセットアップ
+# マインスイーパー機能
+import gameModule.minesweeper as minesweeper
 minesweeper.setup(bot)
+
 # 現在の温度表示機能のセットアップ
+import temperatureModule.temperature as temperature
+from temperatureModule.temperature import process_message
 temperature.setup(bot)
 
 #news
-import tool.news as news
+import toolModule.news as news
 news.setup(bot)
 
 #wikipedia
-import tool.wiki as wiki
+import toolModule.wiki as wiki
 wiki.setup(bot)
 
 #weather
-import tool.weather as weather
+import toolModule.weather as weather
 weather.setup(bot)
 
 @bot.event
