@@ -2,3 +2,4 @@
 __pycache__/
 temperature.json
 temperature.json.lock
+nohup.out
