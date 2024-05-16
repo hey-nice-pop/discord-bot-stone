@@ -12,11 +12,19 @@
 ## Installation
 - discord.py
 - openai(0.28)
+- wikipedia-api
+- geocoder
+- beautifulsoup4
+- requests
 - python-dotenv
 - filelock
 ```bash
 pip install discord
 pip install openai==0.28
+pip install wikipedia
+pip install requests
+pip install beautifulsoup4
+pip install geocoder
 pip install python-dotenv
 pip install filelock
 ```
