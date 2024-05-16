@@ -2,6 +2,22 @@ import discord
 from discord.ext import commands
 import config
 
+# マインスイーパー機能
+import gameModule.minesweeper as minesweeper
+
+#news
+import toolModule.news as news
+
+#wikipedia
+import toolModule.wiki as wiki
+
+#weather
+import toolModule.weather as weather
+
+# 現在の温度表示機能
+import temperatureModule.temperature as temperature
+from temperatureModule.temperature import process_message
+
 from chatgptModule.chatgpt import set_openai_key, handle_chatgpt_response
 
 YOUR_BOT_TOKEN = config.BOT_TOKEN
@@ -25,25 +41,14 @@ async def on_ready():
     await bot.tree.sync()
     print(f'ログイン完了: {bot.user}')
 
-# マインスイーパー機能
-import gameModule.minesweeper as minesweeper
 minesweeper.setup(bot)
 
-# 現在の温度表示機能のセットアップ
-import temperatureModule.temperature as temperature
-from temperatureModule.temperature import process_message
 temperature.setup(bot)
 
-#news
-import toolModule.news as news
 news.setup(bot)
 
-#wikipedia
-import toolModule.wiki as wiki
 wiki.setup(bot)
 
-#weather
-import toolModule.weather as weather
 weather.setup(bot)
 
 @bot.event
