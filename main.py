@@ -41,6 +41,7 @@ async def on_ready():
     await bot.tree.sync()
     print(f'ログイン完了: {bot.user}')
 
+
 minesweeper.setup(bot)
 
 temperature.setup(bot)
