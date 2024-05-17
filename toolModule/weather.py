@@ -126,14 +126,14 @@ class RegionSelect(discord.ui.Select):
                                 f"天気: {weather_info['today']['weather']}\n" \
                                 f"最高気温: {weather_info['today']['high_temp']}℃\n" \
                                 f"最低気温: {weather_info['today']['low_temp']}℃\n" \
-                                f"午前の降水確率: {weather_info['today']['precip_morning']}%\n" \
-                                f"午後の降水確率: {weather_info['today']['precip_afternoon']}%\n\n" \
+                                f"午前の降水確率: {weather_info['today']['precip_morning']}\n" \
+                                f"午後の降水確率: {weather_info['today']['precip_afternoon']}\n\n" \
                                 f"【{weather_info['tomorrow']['date']}の天気】\n" \
                                 f"天気: {weather_info['tomorrow']['weather']}\n" \
                                 f"最高気温: {weather_info['tomorrow']['high_temp']}℃\n" \
                                 f"最低気温: {weather_info['tomorrow']['low_temp']}℃\n" \
-                                f"午前の降水確率: {weather_info['tomorrow']['precip_morning']}%\n" \
-                                f"午後の降水確率: {weather_info['tomorrow']['precip_afternoon']}%\n\n" \
+                                f"午前の降水確率: {weather_info['tomorrow']['precip_morning']}\n" \
+                                f"午後の降水確率: {weather_info['tomorrow']['precip_afternoon']}\n\n" \
                                 f"{description_message}"
 
         await interaction.response.send_message(f'{weather_info["location"]}の天気予報です:\n{formatted_weather_info}')  # 天気情報を送信
