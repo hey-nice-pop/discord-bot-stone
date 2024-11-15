@@ -47,17 +47,30 @@ async def get_most_reacted_post(guild: discord.Guild, date):
     start_of_day = datetime.datetime.combine(date, datetime.time.min)
     end_of_day = datetime.datetime.combine(date, datetime.time.max)
 
-    for channel in guild.text_channels:
+    # テキストチャンネルとフォーラムチャンネルを合わせてループ
+    for channel in guild.text_channels + guild.forums:  # フォーラムチャンネルを追加
         # 無視するカテゴリIDのチェックを追加
         if channel.category_id == IGNORED_CATEGORY_ID:
             continue  # このチャンネルは無視するカテゴリーに属しているのでスキップ
 
         try:
-            async for message in channel.history(limit=100, after=start_of_day, before=end_of_day):
-                total_reactions = sum(reaction.count for reaction in message.reactions)
-                if total_reactions > max_reactions:
-                    most_reacted_post = message
-                    max_reactions = total_reactions
+            # 通常のテキストチャンネル
+            if isinstance(channel, discord.TextChannel):
+                async for message in channel.history(limit=100, after=start_of_day, before=end_of_day):
+                    total_reactions = sum(reaction.count for reaction in message.reactions)
+                    if total_reactions > max_reactions:
+                        most_reacted_post = message
+                        max_reactions = total_reactions
+
+            # フォーラムチャンネルの場合
+            elif isinstance(channel, discord.ForumChannel):
+                # フォーラムのスレッドを処理
+                for thread in channel.threads:
+                    async for message in thread.history(limit=100, after=start_of_day, before=end_of_day):
+                        total_reactions = sum(reaction.count for reaction in message.reactions)
+                        if total_reactions > max_reactions:
+                            most_reacted_post = message
+                            max_reactions = total_reactions
         except Exception as e:
             print(f"チャンネル {channel.name} の履歴取得中にエラー: {e}")
 
