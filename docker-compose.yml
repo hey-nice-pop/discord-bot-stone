@@ -1,0 +1,14 @@
+version: '3.10'
+
+services:
+  stone:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: stone
+    working_dir: /app
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1  # ログ出力をリアルタイムにする
+    command: python main.py
