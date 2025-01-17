@@ -13,8 +13,8 @@
 ### 日本の天気予報
 ### wikipedia検索
 
-## Installation
-.envのコピー、コピー後に各自.envの値を調整
+## 環境構築
+.envのコピー、コピー後に各自.env内の値を調整
 
 ```cp app/.env.example app/.env```
 
@@ -22,7 +22,9 @@ dockerにてコンテナ・botをバックグラウンド起動
 
 ```docker compose up -d```
 
-コンテナをたおす
+### その他コマンド
+
+コンテナをたおす(botの停止)
 
 ```docker compose down```
 
