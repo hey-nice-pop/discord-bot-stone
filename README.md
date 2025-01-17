@@ -29,3 +29,6 @@ dockerにてコンテナ・botをバックグラウンド起動
 起動中のコンテナに入る
 
 ```docker exec -it stone /bin/bash```
+
+起動中のbotのリアルタイムログを確認する
+```docker compose logs -f stone```
