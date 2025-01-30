@@ -19,7 +19,7 @@ jobs:
         host: ${{ secrets.RPI_HOST }}
         username: ${{ secrets.RPI_USER }}
         key: ${{ secrets.RPI_SSH_KEY }}
-        port: 2222
+        port: 22
         script: |
           cd ~/discord-bot-stone
           git pull origin main
