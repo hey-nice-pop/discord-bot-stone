@@ -11,4 +11,5 @@ services:
       - ./app:/app  # ホストの app ディレクトリをコンテナ内の /app にマウント
     environment:
       - PYTHONUNBUFFERED=1  # ログ出力をリアルタイムにする
-    # command: python main.py  # /app/main.py を指定
+    command: sleep infinity
+    # python main.py  # /app/main.py を指定
