@@ -1,0 +1,14 @@
+version: '3.10'
+
+services:
+  stone:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: stone
+    working_dir: /app  # /app 配下で作業を行う
+    volumes:
+      - ./app:/app  # ホストの app ディレクトリをコンテナ内の /app にマウント
+    environment:
+      - PYTHONUNBUFFERED=1  # ログ出力をリアルタイムにする
+    # command: python main.py  # /app/main.py を指定
