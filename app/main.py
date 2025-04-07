@@ -1,23 +1,24 @@
+import asyncio
 import discord
 from discord.ext import commands
 import config
+import logging
+
+# ログの基本設定（INFOレベル以上を表示）
+logging.basicConfig(level=logging.INFO)
 
 # マインスイーパー機能
 import gameModule.minesweeper as minesweeper
-
-#news
+# news
 import toolModule.news as news
-
-#wikipedia
+# wikipedia
 import toolModule.wiki as wiki
-
-#weather
+# weather
 import toolModule.weather as weather
-
 # 現在の温度表示機能
 import temperatureModule.temperature as temperature
 from temperatureModule.temperature import process_message
-
+# ChatGPT関連
 from chatgptModule.chatgpt import set_openai_key, handle_chatgpt_response
 
 YOUR_BOT_TOKEN = config.BOT_TOKEN
@@ -28,10 +29,9 @@ set_openai_key(OPENAI_API_KEY)
 # インテントを有効化
 intents = discord.Intents.all()
 
-# Botオブジェクトの生成
 bot = commands.Bot(
-    command_prefix='/', 
-    intents=intents, 
+    command_prefix='/',
+    intents=intents,
     sync_commands=True,
     activity=discord.Game("水風呂")
 )
@@ -39,32 +39,37 @@ bot = commands.Bot(
 @bot.event
 async def on_ready():
     await bot.tree.sync()
-    print(f'ログイン完了: {bot.user}')
-
-
-minesweeper.setup(bot)
-
-temperature.setup(bot)
-
-news.setup(bot)
-
-wiki.setup(bot)
-
-weather.setup(bot)
+    print(f"ログイン完了: {bot.user}")
 
 @bot.event
 async def on_message(message):
     if message.author.bot:
         return
-    # ChatGPT応答処理を実行
+
+    # ChatGPT応答処理
     await handle_chatgpt_response(bot, message)
 
-    # 温度更新処理を実行
+    # 温度更新処理（指定カテゴリを無視）
     if message.channel.category_id != IGNORED_CATEGORY_ID:
         await process_message(message)
 
-    # 他のコマンドも処理
+    # その他のコマンド処理
     await bot.process_commands(message)
 
-# Discordボットを起動
-bot.run(YOUR_BOT_TOKEN)
+async def main():
+    async with bot:
+        # 同期的なモジュールの初期化
+        minesweeper.setup(bot)
+        news.setup(bot)
+        wiki.setup(bot)
+        weather.setup(bot)
+        temperature.setup(bot)
+        # 非同期に recommendation モジュール（cog）を読み込む
+        await bot.load_extension("recommendationModule.recommendation")
+        await bot.start(YOUR_BOT_TOKEN)
+
+if __name__ == "__main__":
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        print("Botが Ctrl+C により停止しました。")
