@@ -7,7 +7,7 @@ wikipedia.set_lang('ja')
 async def wiki_search(interaction: discord.Interaction, keyword: str):
     search_results = wikipedia.search(keyword, results=10)
     if not search_results:
-        await interaction.response.send_message("申し訳ありません、関連するページは見つかりませんでした。", ephemeral=False)
+        await interaction.response.send_message("申し訳ありません、関連するページは見つかりませんでした。", ephemeral=True)
         return
 
     class WikiSelect(discord.ui.Select):

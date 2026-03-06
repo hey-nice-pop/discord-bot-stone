@@ -41,6 +41,16 @@ async def on_ready():
     await bot.tree.sync()
     print(f"ログイン完了: {bot.user}")
 
+@bot.tree.error
+async def on_app_command_error(interaction: discord.Interaction, error: discord.app_commands.AppCommandError):
+    # コマンド実行時のエラーは全員に通知
+    message = "コマンドの実行中にエラーが発生しました。時間をおいて再度お試しください。"
+    if interaction.response.is_done():
+        await interaction.followup.send(message, ephemeral=False)
+    else:
+        await interaction.response.send_message(message, ephemeral=False)
+    logging.exception("App command error: %s", error)
+
 @bot.event
 async def on_message(message):
     if message.author.bot:
