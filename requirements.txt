@@ -2,6 +2,5 @@ discord
 openai==0.28
 wikipedia
 requests
-beautifulsoup4
 python-dotenv
 filelock

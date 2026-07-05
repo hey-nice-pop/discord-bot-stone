@@ -9,8 +9,6 @@ logging.basicConfig(level=logging.INFO)
 
 # マインスイーパー機能
 import gameModule.minesweeper as minesweeper
-# news
-import toolModule.news as news
 # wikipedia
 import toolModule.wiki as wiki
 # weather
@@ -70,7 +68,6 @@ async def main():
     async with bot:
         # 同期的なモジュールの初期化
         minesweeper.setup(bot)
-        # news.setup(bot)  # ニュース機能は一時的に無効化
         wiki.setup(bot)
         weather.setup(bot)
         temperature.setup(bot)
